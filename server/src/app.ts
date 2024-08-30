@@ -38,7 +38,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "https://nft-gallery-c17cdb2a1bd7.herokuapp.com/",
+        url: "https://nft-gallery-c17cdb2a1bd7.herokuapp.com/api",
         namespace: "production",
       },
       {
