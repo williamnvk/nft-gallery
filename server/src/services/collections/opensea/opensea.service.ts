@@ -2,8 +2,8 @@ import axios from "axios";
 import * as dotenv from "dotenv";
 import { Collections } from "../../../types/collections";
 import { OpenSea } from "./types";
-import { parseNetworkToId } from "src/utils/network.utils";
-import { PROVIDER_OPEN_SEA } from "src/config/providers";
+import { parseNetworkToId } from "../../../utils/network.utils";
+import { PROVIDER_OPEN_SEA } from "../../../config/providers";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -17,7 +17,7 @@ class OpenSeaService {
     return {
       origin: PROVIDER_OPEN_SEA,
       name: collection.name,
-      symbol: collection.collection,
+      slug: collection.collection,
       description: collection.description,
       cover: collection.image_url,
       isNsfw: collection.is_nsfw,

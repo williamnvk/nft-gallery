@@ -2,7 +2,7 @@ import axios from "axios";
 import * as dotenv from "dotenv";
 import { Collections } from "../../../types/collections";
 import { Reservoir } from "./types";
-import { PROVIDER_RESERVOIR } from "src/config/providers";
+import { PROVIDER_RESERVOIR } from "../../../config/providers";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -16,7 +16,7 @@ class ReservoirService {
     return {
       origin: PROVIDER_RESERVOIR,
       name: collection.name,
-      symbol: collection.symbol,
+      slug: collection.symbol,
       description: collection.description,
       cover: collection.image,
       isNsfw: collection.isNsfw,

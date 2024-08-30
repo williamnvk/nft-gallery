@@ -8,7 +8,7 @@ export namespace Collections {
 
   export interface Collection {
     name: string;
-    symbol: string;
+    slug: string;
     description: string;
     cover: string;
     isNsfw: boolean;
