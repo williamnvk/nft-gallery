@@ -30,6 +30,12 @@ const router = Router();
  *         description: Rede para filtrar as coleções
  *         schema:
  *           type: string
+ *       - in: query
+ *         name: provider
+ *         required: false
+ *         description: Fonte dos dados (reservoir ou opensea)
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Lista de coleções
