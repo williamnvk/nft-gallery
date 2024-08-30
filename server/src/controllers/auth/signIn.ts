@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { StatusCodes } from "http-status-codes";
 import { validationResult } from "express-validator";
-import { UserModel } from "src/models/user.model";
+import { UserModel } from "../../models/user.model";
 import jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 

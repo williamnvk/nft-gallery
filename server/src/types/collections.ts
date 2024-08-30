@@ -1,4 +1,4 @@
-import { PROVIDER_OPEN_SEA, PROVIDER_RESERVOIR } from "src/config/providers";
+import { PROVIDER_OPEN_SEA, PROVIDER_RESERVOIR } from "../config/providers";
 
 export namespace Collections {
   export interface Contract {

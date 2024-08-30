@@ -1,6 +1,6 @@
 import { Router } from "express";
 import CollectionsController from "../../controllers/collections";
-import CollectionsValidator from "src/controllers/collections/validators";
+import CollectionsValidator from "../../controllers/collections/validators";
 
 const router = Router();
 

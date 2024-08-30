@@ -1,4 +1,4 @@
-import { Collections } from "src/types/collections";
+import { Collections } from "../../types/collections";
 import {
   DEFAULT_PROVIDER,
   PROVIDER_OPEN_SEA,
