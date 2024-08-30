@@ -1,0 +1,32 @@
+import { useState } from 'react';
+
+export default function useLocalStorage(
+  key: string,
+  initialValue: string
+): [string, (value: Function | string) => void] {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item =
+        typeof window !== 'undefined' && window.localStorage.getItem(key);
+
+      return item || initialValue;
+    } catch (error) {
+      return initialValue;
+    }
+  });
+
+  const setValue = (value: Function | string) => {
+    try {
+      const valueToStore =
+        value instanceof Function ? value(storedValue) : value;
+
+      setStoredValue(valueToStore);
+
+      window.localStorage.setItem(key, valueToStore);
+    } catch (error) {
+      //
+    }
+  };
+
+  return [storedValue, setValue];
+}

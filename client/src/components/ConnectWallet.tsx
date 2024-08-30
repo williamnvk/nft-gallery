@@ -1,10 +1,19 @@
 "use client";
 
-import { Box, Button, Text } from "@chakra-ui/react";
-import { useState } from "react";
+import { useUserSession } from "@/hooks";
+import { loginWithWallet } from "@/services/auth";
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuGroup,
+  MenuItem,
+  MenuList,
+} from "@chakra-ui/react";
 
 const ConnectWallet = () => {
-  const [account, setAccount] = useState<null | string>(null);
+  const { wallet, setWallet, isLoggedIn, setAccessToken, resetUser } =
+    useUserSession();
 
   const connectWallet = async () => {
     if (typeof window.ethereum !== "undefined") {
@@ -14,7 +23,10 @@ const ConnectWallet = () => {
           method: "eth_requestAccounts",
         });
         const account = accounts[0];
-        setAccount(account);
+        setWallet(account);
+
+        const response = await loginWithWallet(account);
+        setAccessToken(response.token);
       } catch (error) {
         console.error("Erro ao conectar a carteira:", error);
       }
@@ -23,13 +35,36 @@ const ConnectWallet = () => {
     }
   };
 
+  const disconnect = async () => {
+    try {
+      // Disconnect from the wallet
+      await window.ethereum.disconnect();
+    } catch (error) {
+      console.error("Error disconnecting wallet:", error);
+    } finally {
+      resetUser();
+    }
+  };
+
+  if (isLoggedIn) {
+    return (
+      <Menu>
+        <MenuButton as={Button} colorScheme="teal">
+          {wallet}
+        </MenuButton>
+        <MenuList>
+          <MenuGroup title="Ações">
+            <MenuItem onClick={disconnect}>Desconectar Carteira</MenuItem>
+          </MenuGroup>
+        </MenuList>
+      </Menu>
+    );
+  }
+
   return (
-    <Box>
-      <Button colorScheme="blue" onClick={connectWallet}>
-        Conectar Carteira
-      </Button>
-      <Text>{account}</Text>
-    </Box>
+    <Button colorScheme="blue" onClick={connectWallet}>
+      Conectar Carteira
+    </Button>
   );
 };
 

@@ -1,4 +1,6 @@
+import { CollectionCard } from "@/components/CollectionCard";
 import { Search } from "@/components/shared/search";
+import { getAllCollections } from "@/services/collections";
 import {
   Container,
   Flex,
@@ -11,6 +13,8 @@ import {
 import { FileIcon, GalleryHorizontalEndIcon, WalletIcon } from "lucide-react";
 
 export default async function Page() {
+  const data = await getAllCollections();
+
   return (
     <>
       <Container maxW="container.xl" mb={16}>
@@ -33,6 +37,12 @@ export default async function Page() {
             </VStack>
             <VStack flex={1}></VStack>
           </Flex>
+
+          <Grid templateColumns="repeat(3, 1fr)" gap={8}>
+            {data.map((c) => (
+              <CollectionCard key={`collection-${c.slug}`} {...c} />
+            ))}
+          </Grid>
 
           <Grid templateColumns="repeat(3, 1fr)" gap={8}>
             <GridItem>

@@ -1,12 +1,14 @@
 import type { Metadata, Viewport } from "next";
 
-import ThemeProvider from "@/providers/theme-provider";
+import ThemeProvider from "@/providers/ThemeProvider";
 
 import Navbar from "@/components/shared/navbar";
 import Footer from "@/components/shared/footer";
+import { UserSessionProvider } from "@/providers/UserProvider";
 
 const metaDataTitle = process.env.NEXT_PUBLIC_SITE_NAME || "";
-const metaDataDescription = "Descubra o Futuro da Arte e Colecionáveis Digitais";
+const metaDataDescription =
+  "Descubra o Futuro da Arte e Colecionáveis Digitais";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -50,11 +52,13 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning lang="pt-BR">
       <body>
-        <ThemeProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer />
-        </ThemeProvider>
+        <UserSessionProvider>
+          <ThemeProvider>
+            <Navbar />
+            <main>{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </UserSessionProvider>
       </body>
     </html>
   );
