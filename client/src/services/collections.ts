@@ -3,8 +3,8 @@ import { fetchAPI } from "@/utils/api";
 
 const path = `/collections`;
 
-export async function getAllCollections(): Promise<
-  Array<Collections.Collection>
-> {
-  return await fetchAPI(path, {});
+export async function getAllCollections(
+  searchParam: string | null = null
+): Promise<Array<Collections.Collection>> {
+  return await fetchAPI(path, { search: searchParam });
 }

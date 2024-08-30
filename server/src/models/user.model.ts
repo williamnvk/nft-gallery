@@ -1,13 +1,24 @@
-import mongoose, { Schema } from "mongoose";
+import { model, Schema, Document } from "mongoose";
+import { ObjectId } from "mongodb";
 import { Users } from "../types/users";
 
-const userSchema = new Schema<Users.User>(
+export interface UserSchema extends Users.User, Document {
+  _id: ObjectId;
+}
+
+const userSchema = new Schema<UserSchema>(
   {
-    wallet: { type: String, required: true, unique: true },
+    wallet: {
+      type: String,
+      unique: true,
+      required: true,
+      index: true,
+    },
   },
   {
+    versionKey: false,
     timestamps: true,
   }
 );
 
-export const UserModel = mongoose.model<Users.User>("User", userSchema);
+export const UserModel = model<UserSchema>("User", userSchema, "User");

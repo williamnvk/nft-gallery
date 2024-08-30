@@ -1,7 +1,7 @@
 import { body } from "express-validator";
 import { PROVIDER_OPEN_SEA, PROVIDER_RESERVOIR } from "../../../config/providers";
 
-const createCollection = [
+const addCollectionToUser = [
   body("name")
     .isString()
     .notEmpty()
@@ -44,4 +44,6 @@ const createCollection = [
     }),
 ];
 
-export default createCollection;
+export default addCollectionToUser;
+
+

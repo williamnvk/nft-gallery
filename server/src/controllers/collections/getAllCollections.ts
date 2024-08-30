@@ -36,7 +36,6 @@ export async function getAllCollections(req: Request, res: Response) {
 
     res.json(response);
   } catch (error) {
-    console.log(error);
     if (error instanceof Error) {
       res.status(StatusCodes.BAD_REQUEST).json({ message: error.message });
     } else {

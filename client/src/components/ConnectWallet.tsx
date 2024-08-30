@@ -1,6 +1,7 @@
 "use client";
 
-import { useUserSession } from "@/hooks";
+import { truncateString } from "@/helpers/truncateString";
+import { useUserSession, useWeb3 } from "@/hooks";
 import { loginWithWallet } from "@/services/auth";
 import {
   Button,
@@ -10,29 +11,22 @@ import {
   MenuItem,
   MenuList,
 } from "@chakra-ui/react";
+import { WalletIcon } from "lucide-react";
+import { useCallback } from "react";
 
 const ConnectWallet = () => {
   const { wallet, setWallet, isLoggedIn, setAccessToken, resetUser } =
     useUserSession();
+  const { connectWallet } = useWeb3();
 
-  const connectWallet = async () => {
-    if (typeof window.ethereum !== "undefined") {
-      try {
-        // Solicitar conexão com a carteira
-        const accounts = await window.ethereum.request({
-          method: "eth_requestAccounts",
-        });
-        const account = accounts[0];
-        setWallet(account);
+  const onConnectSuccess = useCallback(async (account: string) => {
+    setWallet(account);
+    const response = await loginWithWallet(account);
+    setAccessToken(response.token);
+  }, []);
 
-        const response = await loginWithWallet(account);
-        setAccessToken(response.token);
-      } catch (error) {
-        console.error("Erro ao conectar a carteira:", error);
-      }
-    } else {
-      console.error("MetaMask não está instalada");
-    }
+  const onConnectWallet = () => {
+    connectWallet(onConnectSuccess);
   };
 
   const disconnect = async () => {
@@ -50,10 +44,13 @@ const ConnectWallet = () => {
     return (
       <Menu>
         <MenuButton as={Button} colorScheme="teal">
-          {wallet}
+          {truncateString(wallet as string, 4)}
         </MenuButton>
         <MenuList>
           <MenuGroup title="Ações">
+            <MenuItem as="a" href="/minhas-colecoes">
+              Ver minhas coleções
+            </MenuItem>
             <MenuItem onClick={disconnect}>Desconectar Carteira</MenuItem>
           </MenuGroup>
         </MenuList>
@@ -62,7 +59,11 @@ const ConnectWallet = () => {
   }
 
   return (
-    <Button colorScheme="blue" onClick={connectWallet}>
+    <Button
+      colorScheme="blue"
+      onClick={onConnectWallet}
+      leftIcon={<WalletIcon />}
+    >
       Conectar Carteira
     </Button>
   );

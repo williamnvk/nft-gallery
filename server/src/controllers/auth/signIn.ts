@@ -35,7 +35,6 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
 
     return res.status(StatusCodes.OK).json({ token });
   } catch (error) {
-    console.log(error);
     return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json(error);
   }
 }

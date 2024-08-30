@@ -31,13 +31,19 @@ const swaggerOptions = {
   swaggerDefinition: {
     openapi: "3.0.0",
     info: {
-      title: "API de Coleções",
+      title: "API das Coleções de NFT's",
       version: "1.0.0",
-      description: "Documentação da API para gerenciamento de coleções",
+      description:
+        "Documentação da API para gerenciamento de coleções de NFT's",
     },
     servers: [
       {
+        url: "https://nft-gallery-c17cdb2a1bd7.herokuapp.com/",
+        namespace: "production",
+      },
+      {
         url: `http://localhost:${process.env.PORT}/api`,
+        namespace: "local",
       },
     ],
   },

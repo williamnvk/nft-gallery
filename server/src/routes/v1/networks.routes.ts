@@ -7,14 +7,14 @@ const router = Router();
  * @swagger
  * tags:
  *   name: Networks
- *   description: Gerenciamento de redes disponíveis
+ *   description: Redes disponíveis
  */
 
 /**
  * @swagger
  * /v1/networks:
  *   get:
- *     summary: Listar todas as redes
+ *     summary: Listar todas as redes disponíveis
  *     tags: [Networks]
  *     responses:
  *       200:

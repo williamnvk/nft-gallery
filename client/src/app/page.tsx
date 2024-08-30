@@ -1,30 +1,50 @@
-import { CollectionCard } from "@/components/CollectionCard";
+import CollectionsGrid from "@/components/CollectionsGrid";
+import { HomeIllustrationSvg } from "@/components/illustrations/HomeIllustrationSvg";
 import { Search } from "@/components/shared/search";
 import { getAllCollections } from "@/services/collections";
 import {
+  Button,
   Container,
   Flex,
   Grid,
   GridItem,
   Heading,
+  Stack,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { FileIcon, GalleryHorizontalEndIcon, WalletIcon } from "lucide-react";
+import {
+  FileIcon,
+  GalleryHorizontalEndIcon,
+  SearchIcon,
+  WalletIcon,
+} from "lucide-react";
 
-export default async function Page() {
-  const data = await getAllCollections();
+export default async function Page({ searchParams }: { searchParams: any }) {
+  const data = await getAllCollections(
+    (searchParams["search"] as string) || null
+  );
 
   return (
     <>
       <Container maxW="container.xl" mb={16}>
-        <VStack w="full" align="flex-start" gap={8}>
-          <Flex minH="50vh" align="center">
-            <VStack flex={1} align="center" gap={4}>
-              <Heading as="h1" size="xl" mb={8}>
+        <VStack w="full" align="flex-start" gap={4} px={{ base: 0, md: 8 }}>
+          <Stack
+            minH="60vh"
+            align="center"
+            direction={{ base: "column-reverse", md: "row" }}
+            w="full"
+          >
+            <VStack flex={1} align="center" gap={4} w="full">
+              <Heading
+                as="h1"
+                w="full"
+                fontSize={{ base: "3xl", md: "5xl" }}
+                mb={{ base: 2, md: 8 }}
+              >
                 Descubra o Futuro da Arte e Colecionáveis Digitais
               </Heading>
-              <Text fontSize="sm">
+              <Text fontSize={{ base: "xs", md: "sm" }}>
                 Bem-vindo ao{" "}
                 <strong>{process.env.NEXT_PUBLIC_SITE_NAME}</strong>, onde a
                 criatividade encontra a inovação. Nossa plataforma conecta
@@ -35,16 +55,28 @@ export default async function Page() {
               </Text>
               <Search />
             </VStack>
-            <VStack flex={1}></VStack>
-          </Flex>
+            <VStack flex={1} align="center" m={{ base: 4, md: 0 }}>
+              <HomeIllustrationSvg width="300px" height="300px" />
+            </VStack>
+          </Stack>
 
-          <Grid templateColumns="repeat(3, 1fr)" gap={8}>
-            {data.map((c) => (
-              <CollectionCard key={`collection-${c.slug}`} {...c} />
-            ))}
-          </Grid>
+          {data.length > 0 ? (
+            <CollectionsGrid collections={data} />
+          ) : (
+            <VStack align="center" w="full" bg="gray.100" p={8}>
+              <SearchIcon size="48px" />
+              <Heading size="md">Nenhum resultado encontrado...</Heading>
+              <Text size="xs">Tente outro termo!</Text>
+              <Button as="a" href="/" variant="outline" colorScheme="blue">
+                Recarregar
+              </Button>
+            </VStack>
+          )}
 
-          <Grid templateColumns="repeat(3, 1fr)" gap={8}>
+          <Grid
+            templateColumns={{ base: "repeat(1, 1fr)", md: "repeat(3, 1fr)" }}
+            gap={8}
+          >
             <GridItem>
               <Flex gap={4} align="center">
                 <FileIcon size={32} />

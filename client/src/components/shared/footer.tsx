@@ -10,6 +10,7 @@ import {
   Text,
   VStack,
   Box,
+  Stack,
 } from "@chakra-ui/react";
 import { MailIcon } from "lucide-react";
 import Link from "next/link";
@@ -18,7 +19,8 @@ function Footer() {
   return (
     <Box as="footer" borderTopWidth="1px">
       <Container maxW="container.xl" p={8} gap={16}>
-        <Flex
+        <Stack
+          direction={{ base: "column", md: "row" }}
           align="center"
           justifyContent="flex-start"
           w="full"
@@ -54,13 +56,7 @@ function Footer() {
               </Text>
             </Flex>
           </VStack>
-        </Flex>
-        <Grid templateColumns="repeat(4, 1fr)">
-          <GridItem></GridItem>
-          <GridItem></GridItem>
-          <GridItem></GridItem>
-          <GridItem></GridItem>
-        </Grid>
+        </Stack>
         <Divider />
         <Flex mt={8}>
           <Text fontSize="xs">

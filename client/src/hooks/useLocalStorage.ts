@@ -1,4 +1,5 @@
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 export default function useLocalStorage(
   key: string,
@@ -7,7 +8,7 @@ export default function useLocalStorage(
   const [storedValue, setStoredValue] = useState(() => {
     try {
       const item =
-        typeof window !== 'undefined' && window.localStorage.getItem(key);
+        typeof window !== "undefined" && window.localStorage.getItem(key);
 
       return item || initialValue;
     } catch (error) {

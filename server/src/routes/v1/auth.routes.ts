@@ -16,6 +16,7 @@ const router = Router();
  * /v1/sign-in:
  *   post:
  *     summary: Fazer login
+ *     tags: [Authentication]
  *     description: Faz login com uma carteira e retorna um JWT
  *     requestBody:
  *       required: true

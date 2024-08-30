@@ -7,7 +7,7 @@
  *       properties:
  *         name:
  *           type: string
- *         symbol:
+ *         slug:
  *           type: string
  *         description:
  *           type: string
@@ -29,7 +29,7 @@
  *           enum: [opensea, reservoir]
  *       required:
  *         - name
- *         - symbol
+ *         - slug
  *         - description
  *         - cover
  *         - contracts
