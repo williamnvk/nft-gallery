@@ -7,19 +7,24 @@ const contractSchema = new Schema<Collections.Contract>({
   chain: { type: Number, required: true },
 });
 
-const collectionSchema = new Schema<Collections.Collection>({
-  name: { type: String, required: true },
-  slug: { type: String, required: true },
-  description: { type: String, required: true },
-  cover: { type: String, required: true },
-  isNsfw: { type: Boolean, default: false },
-  contracts: { type: [contractSchema], required: true },
-  origin: {
-    type: String,
-    enum: [PROVIDER_OPEN_SEA, PROVIDER_RESERVOIR],
-    required: true,
+const collectionSchema = new Schema<Collections.Collection>(
+  {
+    name: { type: String, required: true },
+    slug: { type: String, required: true },
+    description: { type: String, required: true },
+    cover: { type: String, required: true },
+    isNsfw: { type: Boolean, default: false },
+    contracts: { type: [contractSchema], required: true },
+    origin: {
+      type: String,
+      enum: [PROVIDER_OPEN_SEA, PROVIDER_RESERVOIR],
+      required: true,
+    },
   },
-});
+  {
+    timestamps: true,
+  }
+);
 
 export const CollectionModel = mongoose.model<Collections.Collection>(
   "Collection",

@@ -13,10 +13,23 @@ const router = Router();
 
 /**
  * @swagger
- * /collections:
+ * /v1/collections:
  *   get:
  *     summary: Listar todas as coleções
  *     tags: [Collections]
+ *     parameters:
+ *       - in: query
+ *         name: search
+ *         required: false
+ *         description: Termo para buscar coleções pelo nome ou descrição.
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: network
+ *         required: false
+ *         description: Rede para filtrar as coleções
+ *         schema:
+ *           type: string
  *     responses:
  *       200:
  *         description: Lista de coleções
@@ -31,7 +44,7 @@ router.route("/collections").get(CollectionsController.getAllCollections);
 
 /**
  * @swagger
- * /collections:
+ * /v1/collections:
  *   post:
  *     summary: Criar uma nova coleção
  *     tags: [Collections]

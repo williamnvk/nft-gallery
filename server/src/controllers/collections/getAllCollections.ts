@@ -28,11 +28,11 @@ export async function getAllCollections(req: Request, res: Response) {
       ? parseNetworkToId(queryParameterNetwork as string)
       : undefined;
 
-    const search = req.query.search as string;
+    const queryParameterSearch = (req.query.search as string) || undefined;
 
     const response = await collectionService
       .setProvider(provider)
-      .getCollections(network, search);
+      .getCollections(network, queryParameterSearch);
 
     res.json(response);
   } catch (error) {
