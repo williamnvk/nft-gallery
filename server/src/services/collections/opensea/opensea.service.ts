@@ -2,7 +2,10 @@ import axios from "axios";
 import * as dotenv from "dotenv";
 import { Collections } from "../../../types/collections";
 import { OpenSea } from "./types";
-import { parseNetworkToId } from "../../../utils/network.utils";
+import {
+  parseNetworkToId,
+  parseNetworkToName,
+} from "../../../utils/network.utils";
 import { PROVIDER_OPEN_SEA } from "../../../config/providers";
 
 if (process.env.NODE_ENV !== "production") {
@@ -28,16 +31,28 @@ class OpenSeaService {
     };
   }
 
-  async getCollections(): Promise<Array<Collections.Collection>> {
+  async getCollections(
+    network: number | undefined = undefined,
+    searchParam: string | undefined = undefined
+  ): Promise<Array<Collections.Collection>> {
     try {
-      const response = await axios.get(`${openseaApiUrl}v2/collections`, {
+      const url = `${openseaApiUrl}v2/collections${
+        searchParam ? `/${searchParam}` : ""
+      }?chain=${parseNetworkToName(network as number)}`;
+
+      const response = await axios.get(url, {
         headers: {
           "x-api-key": openseaApiKey,
         },
       });
-      return response.data.collections.map((c: OpenSea.Collection) =>
-        this.parser(c)
-      );
+
+      if (response.data && Array.isArray(response.data.collections)) {
+        return response.data.collections.map((c: OpenSea.Collection) =>
+          this.parser(c)
+        );
+      } else {
+        return [this.parser(response.data)];
+      }
     } catch (error) {
       console.error("Error fetching collections from Reservoir:", error);
       throw error;

@@ -29,9 +29,17 @@ class ReservoirService {
     };
   }
 
-  async getCollections(): Promise<Array<Collections.Collection>> {
+  async getCollections(
+    network: number | undefined = undefined,
+    searchParam: string | undefined = undefined
+  ): Promise<Array<Collections.Collection>> {
     try {
-      const response = await axios.get(`${reservoirApiUrl}collections/v7`, {
+      const urlSearch = `${reservoirApiUrl}collections/search/v1?prefix=${searchParam}${
+        network !== undefined ? `&chains=${network}` : ""
+      }`;
+      const urlGet = `${reservoirApiUrl}collections/v7`;
+
+      const response = await axios.get(searchParam ? urlSearch : urlGet, {
         headers: {
           Authorization: `Bearer ${reservoirApiKey}`,
         },
