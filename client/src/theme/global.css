@@ -1,0 +1,14 @@
+.next-image-fix {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  
+    .next-image-fix-image-component {
+      width: 100%;
+      height: 100%;
+      position: relative !important;
+      object-fit: cover;
+    }
+  }
+  
+  

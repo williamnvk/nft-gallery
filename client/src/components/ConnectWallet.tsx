@@ -1,5 +1,6 @@
 "use client";
 
+import { Box, Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 const ConnectWallet = () => {
@@ -23,10 +24,12 @@ const ConnectWallet = () => {
   };
 
   return (
-    <div>
-      <button onClick={connectWallet}>Conectar MetaMask</button>
-      {account}
-    </div>
+    <Box>
+      <Button colorScheme="blue" onClick={connectWallet}>
+        Conectar Carteira
+      </Button>
+      <Text>{account}</Text>
+    </Box>
   );
 };
 
