@@ -1,9 +1,9 @@
 import express, { Express } from "express";
 import cors from "cors";
-import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 import compression from "compression";
 import routes from "./routes/v1";
+import connectDB from "./config/db";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -25,17 +25,6 @@ app.use(compression());
 
 app.use("/api", routes);
 
-mongoose.Promise = global.Promise;
-mongoose.set("strictQuery", true);
-mongoose
-  .connect(process.env.DATABASE_URL as string)
-  .then(() => {
-    console.info("[MongoDB] Banco de dados conectado!");
-  })
-  .catch((e) => {
-    console.error(
-      "[MongoDB] Falha na conexão com o banco de dados. Isso causará falhas em todo o sistema."
-    );
-  });
+connectDB();
 
 export default app;
