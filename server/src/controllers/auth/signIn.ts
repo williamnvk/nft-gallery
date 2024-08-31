@@ -16,7 +16,7 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const wallet = (req.body.wallet as string).toLocaleLowerCase();
+    const wallet = req.body.wallet.toLocaleLowerCase();
 
     let user = await UserModel.findOne({ wallet });
 
