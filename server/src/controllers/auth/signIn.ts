@@ -18,7 +18,7 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
 
     const wallet = (req.body.wallet as string).toLocaleLowerCase();
 
-    let user = await UserModel.findOne({ wallet: wallet });
+    let user = await UserModel.findOne({ wallet });
 
     /**
      * @note como aqui é um esquema básico de autenticação, no primeiro signIn ele cria um registro do usuário
@@ -29,13 +29,9 @@ export async function signIn(req: Request, res: Response, next: NextFunction) {
       await user.save();
     }
 
-    const token = jwt.sign(
-      { wallet: user.wallet },
-      process.env.JWT_SECRET as string,
-      {
-        expiresIn: "1d",
-      }
-    );
+    const token = jwt.sign({ wallet }, process.env.JWT_SECRET as string, {
+      expiresIn: "1d",
+    });
 
     return res.status(StatusCodes.OK).json({ token });
   } catch (error) {
