@@ -26,3 +26,13 @@ export const addCollectionToUser = async (
     body: JSON.stringify(payload),
   });
 };
+
+export async function exportToCsv(token: string) {
+  return await fetch(`${url}/csv`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+}

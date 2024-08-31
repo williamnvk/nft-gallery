@@ -1,13 +1,20 @@
 "use client";
 
-import { Button, Grid, Heading, Skeleton, VStack } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  Skeleton,
+  VStack,
+} from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useUserSession } from "@/hooks";
 import { useToast } from "@chakra-ui/react";
 import CollectionsGrid from "@/components/CollectionsGrid";
-import { SearchIcon } from "lucide-react";
+import { SearchIcon, SheetIcon } from "lucide-react";
 import { Collections } from "@/types/collections";
-import { getMyCollections } from "@/services/users";
+import { getMyCollections, exportToCsv } from "@/services/users";
 import { useRouter } from "next/navigation";
 
 const MyCollections = () => {
@@ -42,6 +49,32 @@ const MyCollections = () => {
     }
   };
 
+  const downloadCsv = async () => {
+    try {
+      const response = await exportToCsv(token as string);
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "minhas-colecoes.csv";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch {
+      toast({
+        title: "Atenção",
+        description:
+          "Não foi possível fazer exportar suas coleções. Tente novamente mais tarde!",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
   useEffect(() => {
     onGetMyCollections();
   }, []);
@@ -67,7 +100,18 @@ const MyCollections = () => {
   return (
     <>
       {collections.length > 0 ? (
-        <CollectionsGrid collections={collections} />
+        <>
+          <Flex w="full">
+            <Button
+              onClick={downloadCsv}
+              leftIcon={<SheetIcon />}
+              colorScheme="teal"
+            >
+              Download
+            </Button>
+          </Flex>
+          <CollectionsGrid collections={collections} />
+        </>
       ) : (
         <VStack align="center" w="full" bg="gray.100" p={8}>
           <SearchIcon size="48px" />

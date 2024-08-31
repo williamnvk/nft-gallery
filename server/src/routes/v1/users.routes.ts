@@ -211,4 +211,29 @@ router
   )
   .get(isAuthenticated, UsersController.getUserCollections);
 
+/**
+ * @swagger
+ * /v1/users/collections/csv:
+ *   get:
+ *     summary: Exportar coleções de usuário para CSV
+ *     description: Busca todas as coleções de um usuário especificado e as exporta em formato CSV.
+ *     tags: [Users]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Um arquivo CSV contendo as coleções do usuário.
+ *         content:
+ *           text/csv:
+ *             schema:
+ *               type: string
+ *       404:
+ *         description: Nenhuma coleção encontrada para este usuário.
+ *       500:
+ *         description: Erro Interno do Servidor.
+ */
+router
+  .route("/users/collections/csv")
+  .get(isAuthenticated, UsersController.exportUserCollectionsToCsv);
+
 export default router;
