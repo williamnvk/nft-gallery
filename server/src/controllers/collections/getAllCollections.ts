@@ -3,7 +3,7 @@ import collectionService from "../../services/collections/collection.service";
 import { DEFAULT_PROVIDER } from "../../config/providers";
 import { isNetworkValid, parseNetworkToId } from "../../utils/network.utils";
 import { StatusCodes } from "http-status-codes";
-import { cacheService } from "src/utils/cache";
+import { cacheService } from "../../utils/cache";
 
 export async function getAllCollections(req: Request, res: Response) {
   try {
@@ -22,7 +22,7 @@ export async function getAllCollections(req: Request, res: Response) {
     ) {
       return res
         .status(StatusCodes.BAD_REQUEST)
-        .json({ message: "Invalid network parameter." });
+        .json({ message: "Rede inválida ou não disponível!" });
     }
 
     const network = queryParameterNetwork

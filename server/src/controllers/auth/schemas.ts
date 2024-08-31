@@ -7,11 +7,11 @@
  *       properties:
  *         wallet:
  *           type: string
- *           description: Carteira do usuário
+ *           description: Wallet do usuário
  *     AuthResponse:
  *       type: object
  *       properties:
  *         token:
  *           type: string
- *           description: JWT gerado
+ *           description: JWT
  */
