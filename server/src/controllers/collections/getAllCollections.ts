@@ -3,6 +3,7 @@ import collectionService from "../../services/collections/collection.service";
 import { DEFAULT_PROVIDER } from "../../config/providers";
 import { isNetworkValid, parseNetworkToId } from "../../utils/network.utils";
 import { StatusCodes } from "http-status-codes";
+import { cacheService } from "src/utils/cache";
 
 export async function getAllCollections(req: Request, res: Response) {
   try {
@@ -30,9 +31,20 @@ export async function getAllCollections(req: Request, res: Response) {
 
     const queryParameterSearch = (req.query.search as string) || undefined;
 
+    const cacheKey = `collections:${provider}:${network}:${
+      queryParameterSearch || "all"
+    }`;
+
+    const cachedResponse = await cacheService.getCacheValue(cacheKey);
+    if (cachedResponse) {
+      return res.json(JSON.parse(cachedResponse));
+    }
+
     const response = await collectionService
       .setProvider(provider)
       .getCollections(network, queryParameterSearch);
+
+    await cacheService.setCacheValue(cacheKey, JSON.stringify(response), 3600);
 
     res.json(response);
   } catch (error) {
