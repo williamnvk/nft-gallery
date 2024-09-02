@@ -24,6 +24,9 @@ export async function addCollectionToUser(req: Request, res: Response) {
 
     const checkUserCollection = await CollectionModel.findOne({
       slug: collectionSlug,
+      user: {
+        _id: User._id,
+      },
     }).lean();
 
     if (checkUserCollection) {
