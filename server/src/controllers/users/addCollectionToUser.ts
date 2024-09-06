@@ -37,6 +37,7 @@ export async function addCollectionToUser(req: Request, res: Response) {
       ...req.body,
       user: User,
     });
+    
     await newCollection.save();
 
     res.status(StatusCodes.CREATED).send();

@@ -32,6 +32,7 @@ export async function exportUserCollectionsToCsv(req: Request, res: Response) {
     res.header("Content-Type", "text/csv");
     res.attachment("collections.csv");
     res.send(csv);
+    
   } catch (error) {
     console.log("porra", error);
     if (error instanceof Error) {

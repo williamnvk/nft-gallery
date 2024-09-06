@@ -1,17 +1,13 @@
 # Por que Express.js e não Nest.js ?
 
-Levei em consideração a informação que eu tenho sobre o time atual, express.js por exemplo é uma _framework_
-onde qualquer desenvolvedor, em qualquer nível, terá facilidade em desenvolver, dar manutenção e criar novas `features`.`
+- `Express.js` por exemplo é um _framework_ onde qualquer desenvolvedor, em qualquer nível, terá facilidade em desenvolver, dar manutenção e criar novas _features_.
+- `NestJS` é um pouco mais robusto em termos de desenvolvimento, pois engloba já no seu modo de desenvolver uma série de padrões e arquiteturas impostas, há uma curva de aprendizado maior.
 
-Nest.js é um pouco mais robusto em termos de desenvolvimento, pois engloba já no seu modo de desenvolver uma série de padrões e
-arquiteturas impostas, há uma curva de aprendizado maior. Mas no firm, entrega um _endpoint_ igual o express.js!
-
-Portanto meu modo de tornar o express.js mais robusto, porem menos complexo e mais acessível, é facilitar o entendimento
-através da estrutura de arquivos, que nesse caso vou adotar uma padrão bem distribuído.
+Portanto meu modo de tornar o `Express.js` mais robusto, porem menos complexo e mais acessível, é facilitar o entendimento através da estrutura de arquivos, que nesse caso vou adotar uma padrão bem distribuído. Cada função do controler será um arquivo, cada grupo de rotas será um aruqivo e assim por diante.
 
 # Reservoir e OpenSea
 
-Como o approach aqui é pegar as coleções de NFT, primariamente na _Reservoir_, então, imaginando e forcando um problema futuro, onde, por exemplo,
+Como o approach aqui é pegar as coleções de **NFT**, primariamente na _Reservoir_, então, imaginando e forcando um problema futuro, onde, por exemplo,
 a _Reservoir_ para de funcionar, logo poderiamos rapidamente acioanr uma `FEATURE FLAG` para mudar o funcionamento para outro serviço, nesse caso a _OpenSea_.
 
 Nesse caso, poderiamos de duas formas acionar um ou outro:
@@ -39,11 +35,11 @@ Sentry.init({
 # Uso de IA
 
 - Usei principalmente para geraar a documentaçãodo swagger, que é uma escrita padronizada e tabulada.
-- Sugestão de melhoria de código (não de todo o projeto) mas dos que pareciam maiores.
+- Sugestão de melhoria de código (não de todo o projeto) mas do que pareciam maiores.
 - Escrita dos types dos exemplos das requisições e retornos que eu peguei das documentações.
 - Outras dúvidas menores.
 
-# Entrega dos bonus
+# Melhorias
 
 - [x] Implementar um mecanismo de cache para otimizar as consultas frequentes. *(Usei o Redis)* :heavy_check_mark:
 - [ ] Adicionar testes unitários para componentes críticos. _Perdão Deus por isso_
@@ -59,5 +55,5 @@ Sentry.init({
 ### Da entrega geral
 
 - [x] Disponibilize o código-fonte em um repositório GitHub público. :heavy_check_mark:
-- [x] Inclua um arquivo DECISIONS.md explicando as principais escolhas técnicas. :heavy_check_mark:
-- [x] Se possível, forneça um link para uma versão demo da aplicação hospedada. [API](https://nft-gallery-c17cdb2a1bd7.herokuapp.com/api-docs) | [FRONT](https://nft-gallery-chi-tawny.vercel.app/) :heavy_check_mark:
+- [x] Arquivo DECISIONS.md explicando as principais escolhas técnicas. :heavy_check_mark:
+- [x] Demo da aplicação hospedada. [API](https://nft-gallery-c17cdb2a1bd7.herokuapp.com/api-docs) | [FRONT](https://nft-gallery-chi-tawny.vercel.app/) :heavy_check_mark:
